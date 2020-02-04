@@ -1,0 +1,72 @@
+<div id="modal-create" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="create">訂單建立</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'order_create' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="clientName">姓名</label>
+                        <input class="form-control" type="text" id="clientName" placeholder="請輸入名字" name="name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientTel1">電話1</label>
+                        <input class="form-control" type="tel" id="clientTel1" placeholder="電話1" name="tel1"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientTel2">電話2</label>
+                        <input class="form-control" type="tel" id="clientTel2" placeholder="電話2" name="tel2"/>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientDate">日期</label>
+                            <input type="date" class="form-control" id="clientDate" name="date"/>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientTime">時間</label>
+                            <input type="time" class="form-control" id="clientTime" name="time"/>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientAMPM">上/下午</label>
+                            <select  class="form-control" id="clientAMPM" name="AMPM">
+                                <option value="AM">上午</option>
+                                <option value="PM">下午</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientDistrict">地區</label>
+                            <select  class="form-control" id="clientDistrict" name="district">
+                                <option value="元朗">元朗</option>
+                                <option value="屯門">屯門</option>
+                                <option value="天水圍">天水圍</option>
+                                <option value="上水/大埔/粉嶺">上水/大埔/粉嶺</option>
+                                <option value="荃灣/青衣">荃灣/青衣</option>
+                                <option value="九龍">九龍</option>
+                                <option value="沙田/馬鞍山">沙田/馬鞍山</option>
+                                <option value="港島">港島</option>
+                                <option value="將軍澳/西貢">將軍澳/西貢</option>
+                                <option value="東涌">東涌</option>
+                                <option value="自取">自取</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientAddress">地址</label>
+                            <input type="text" class="form-control" id="clientAddress" name="address"/>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientQuan">件數</label>
+                            <input type="number" class="form-control" id="clientQuan" name="quan" min="0"/>
+                        </div>
+                    <div class="form-group">
+                            <label for="clientPrice">單件價錢</label>
+                            <input type="text" class="form-control" id="clientPrice" name="price"/>
+                    </div>
+
+                        <button type="submit" class="btn btn-primary">建立訂單</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

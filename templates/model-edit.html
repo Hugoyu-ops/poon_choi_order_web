@@ -1,0 +1,76 @@
+<div id="modal-edit-{{ order.id }}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="create">{{ order.fields.Name }} {{ order.fields.Date }} {{ order.fields.Tel1 }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'edit' order_id=order.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="clientName">姓名</label>
+                        <input class="form-control" type="text" id="clientName" value="{{ order.fields.Name }}" name="name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientTel1">電話1</label>
+                        <input class="form-control" type="tel" id="clientTel1" value="{{ order.fields.Tel1 }}" name="tel1"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientTel2">電話2</label>
+                        <input class="form-control" type="tel" id="clientTel2" value="{{ order.fields.Tel2 }}" name="tel2"/>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientDate">日期</label>
+                            <input type="date" class="form-control" id="clientDate" name="date" value="{{ order.fields.Date }}"/>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientTime">時間</label>
+                            <input type="time" class="form-control" id="clientTime" name="time" value="{{ order.fields.time }}"/>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientAMPM">上/下午</label>
+                            <select  class="form-control" id="clientAMPM" name="AMPM" value="{{ order.fields.AMPM }}">
+                                <option value="AM" {% if order.fields.District == value %}selected="selected"{% endif %}>上午</option>
+                                <option value="PM" {% if order.fields.District == value %}selected="selected"{% endif %}>下午</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientDistrict">地區</label>
+                            <select  class="form-control" id="clientDistrict" name="district" value="{{ order.fields.Districts }}">
+                                <option value="元朗" {% if order.fields.District == value %}selected="selected"{% endif %}>元朗</option>
+                                <option value="屯門" {% if order.fields.District == value %}selected="selected"{% endif %}>屯門</option>
+                                <option value="天水圍" {% if order.fields.District == value %}selected="selected"{% endif %}>天水圍</option>
+                                <option value="上水/大埔/粉嶺" {% if order.fields.District == value %}selected="selected"{% endif %}>上水/大埔/粉嶺</option>
+                                <option value="荃灣/青衣" {% if order.fields.District == value %}selected="selected"{% endif %}>荃灣/青衣</option>
+                                <option value="九龍" {% if order.fields.District == value %}selected="selected"{% endif %}>九龍</option>
+                                <option value="沙田/馬鞍山" {% if order.fields.District == value %}selected="selected"{% endif %}>沙田/馬鞍山</option>
+                                <option value="港島" {% if order.fields.District == value %}selected="selected"{% endif %}>港島</option>
+                                <option value="將軍澳/西貢" {% if order.fields.District == value %}selected="selected"{% endif %}>將軍澳/西貢</option>
+                                <option value="東涌" {% if order.fields.District == value %}selected="selected"{% endif %}>東涌</option>
+                                <option value="自取" {% if order.fields.District == value %}selected="selected"{% endif %}>自取</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientAddress">地址</label>
+                            <input type="text" class="form-control" id="clientAddress" name="address" value="{{ order.fields.Address }}"/>
+                    </div>
+                    <div class="form-group">
+                            <label for="clientQuan">件數</label>
+                            <input type="number" class="form-control" id="clientQuan" name="quan" min="0" value="{{ order.fields.Quan }}"/>
+                        </div>
+                    <div class="form-group">
+                            <label for="clientPrice">單件價錢</label>
+                            <input type="text" class="form-control" id="clientPrice" name="price" value="{{ order.fields.Price }}"/>
+                    </div>
+                    <div class="form-inline">
+                        <label for="clientCompleted" style="padding-block: 35px;padding-bottom: 35px">已完成</label>
+                        <input type="checkbox" class="form-control" id="clientCompleted" name="complete" style="padding-bottom: 35px">
+                    </div>
+
+                        <button type="submit" class="btn btn-primary">修改訂單</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
