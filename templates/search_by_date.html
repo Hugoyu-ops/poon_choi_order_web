@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div class="container">
+    <h3>單日生意額: {{ total_amount }}</h3>
+    <h3>上午送貨盤數: {{ am_quan }}</h3>
+    <h3>下午送貨盤數: {{ pm_quan }}</h3>
+    <h3>上午自取盤數: {{ sp_am_quan }}</h3>
+    <h3>下午自取盤數: {{ sp_pm_quan }}</h3>
+    <h3>未確定送貨盤數: {{ not_confirm_quan }}</h3>
+    <h3>未確定自取盤數: {{ sp_not_confirm_quan }}</h3>
     <div class="row">
             {% for order in date %}
           <div class="col-sm-12">
@@ -38,5 +46,6 @@
                 {% include 'modal-delete.html' %}
         {%  endfor %}
         </div>
+    </div>
     </div>
 {% endblock %}

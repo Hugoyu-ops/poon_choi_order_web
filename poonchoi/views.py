@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import os
 from airtable import Airtable
+from django.http import HttpResponseRedirect
 
 AIRTABLE_MOVIESTABLE_BASE_ID = 'appHhDdwtwtYnJtFK'
 AIRTABLE_API_KEY = 'key2fEpOGmPi9WJki'
@@ -61,7 +62,7 @@ def edit(request, order_id):
         }
 
         AT.update(order_id, data)
-    return redirect("/")
+    return redirect('/')
 
 def delete(request, order_id):
     AT.delete(order_id)
@@ -69,9 +70,78 @@ def delete(request, order_id):
 
 def search_by_date(request):
     if request.method == "GET":
-        AT.get_all()
-        date_query = str(request.GET.get('date_query'))
-        date = AT.search('Dates', date_query)
-        #date = date.id
-        #date = AT.get_all(formula="FIND('" + date_query + "', {Dates})")
-    return render(request, 'search_by_date.html', {'date':date})
+        amount = [0]
+        am = [0]
+        pm = [0]
+        sp_am =[0]
+        sp_pm =[0]
+        not_confirm = [0]
+        sp_not_confirm = [0]
+        #AT.get_all()
+        date_query = str(request.GET.get('date_query', ''))
+        #date = AT.search('Dates', date_query)
+        date = AT.get_all(formula="FIND('" + date_query + "', {Dates})")
+        for order in date:
+            amount.append(int(order['fields']['total_price']))
+            total_amount = sum(amount)
+        for order in date:
+            if 'Districts' in order['fields']:
+                if order['fields']['Districts'] != '自取':
+                    if 'AMPM' in order['fields']:
+                        if order['fields']['AMPM'] == "AM":
+                            am.append(int(order['fields']['Quan']))
+                        else:
+                            pm.append(int(order['fields']['Quan']))
+                    else:
+                        not_confirm.append(int(order['fields']['Quan']))
+                else:
+                    if 'AMPM' in order['fields']:
+                        if order['fields']['AMPM'] == "AM":
+                            sp_am.append(int(order['fields']['Quan']))
+                        else:
+                            sp_pm.append(int(order['fields']['Quan']))
+                    else:
+                        sp_not_confirm.append(int(order['fields']['Quan']))
+
+        if len(am) > 0:
+            am_quan = str(sum(am))
+        else:
+            am_quan = '0'
+
+        if len(pm) > 0:
+             pm_quan = str(sum(pm))
+        else:
+            pm_quan = '0'
+
+        if len(sp_am) > 0:
+            sp_am_quan =str(sum(sp_am))
+        else:
+            sp_am_quan = '0'
+
+        if len(sp_pm) > 0:
+            sp_pm_quan =str(sum(sp_pm))
+        else:
+            sp_pm_quan = '0'
+
+        if len(sp_not_confirm) > 0:
+            sp_not_confirm_quan = str(sum(sp_not_confirm))
+        else:
+            sp_not_confirm_quan = '0'
+
+        if len(not_confirm) > 0:
+            not_confirm_quan = str(sum(not_confirm))
+        else:
+            not_confirm_quan ='0'
+
+        context = {
+            'total_amount': total_amount,
+            'date': date,
+            'am_quan': am_quan,
+            'pm_quan': pm_quan,
+            'not_confirm_quan': not_confirm_quan,
+            'sp_am_quan':sp_am_quan,
+            'sp_pm_quan':sp_pm_quan,
+            'sp_not_confirm_quan':sp_not_confirm_quan
+        }
+
+    return render(request, 'search_by_date.html', context)
