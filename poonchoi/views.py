@@ -3,8 +3,6 @@ import os
 from airtable import Airtable
 from django.http import HttpResponseRedirect
 
-AIRTABLE_MOVIESTABLE_BASE_ID = 'appHhDdwtwtYnJtFK'
-AIRTABLE_API_KEY = 'key2fEpOGmPi9WJki'
 
 AT = Airtable(os.environ.get('AIRTABLE_MOVIESTABLE_BASE_ID', AIRTABLE_MOVIESTABLE_BASE_ID),
               'Table%201',
