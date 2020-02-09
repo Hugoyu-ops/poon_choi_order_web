@@ -1,4 +1,59 @@
 {% extends 'base.html' %}
 {% block content %}
+        <div class="container">
+        <hr class="fa fa-star">
+        <form action="" method="get" class="form-inline">
+            <div class="form-group">
+                <input class="form-control" name="query" type="search" placeholder="主要電話" value="{{ Request.get.query }}">
+                <button class="btn btn-outline-success" type="submit" value="Search">訂單搜索</button>
+            </div>
+        </form>
+        <form action="{% url 'date_on_completed' %}" method="get" class="form-inline my-2 my-lg-0" style="padding-right: 35px" >
+                  <div class="form-group">
+                  <input class="form-control mr-sm-2" type="date" name="date_query" class="form-control" value="{{ Request.get.date_query }}" >
+                  <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="Search">查看單日貨流&生意額</button>
+                  </div>
+              </form>
+            <div class="row">
+                {% for order in search %}
+                    {% if order.fields.Completed == 'on' %}
+              <div class="col-sm-12">
+                <div class="card;center">
+                  <div class="card-body">
+                            <h5 class="card-title">姓名: {{ order.fields.Name }}</h5>
+                            <h5 class="card-title">日期: {{ order.fields.Dates }}</h5>
+                            <h5 class="card-title">時間: {{ order.fields.time }} {{ order.fields.AMPM }}</h5>
+                            <p class="card-text">
+                                電話: {{ order.fields.Tel1 }}
+                                電話2: {{ order.fields.Tel2 }}
+                                地區: {{ order.fields.Districts }}
+                                地址: {{ order.fields.Address }}
+                            </p>
+                            <p class="card-text">
+                                件數: {{ order.fields.Quan }}
+                                價錢: ${{ order.fields.Price }}
+                                運費: ${{ order.fields.shipping_fee }}
+                                總收費(連運費): ${{ order.fields.total_price}}<br>
+                                {% if order.fields.Completed %}<h2 style="text-align: center">已完成</h2>{% endif %}
+                            </p>
+                      <hr class="fa fa-star">
+                      <div class="form-row text-left">
+                        <div class="col-6">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-completed-{{ order.id }}">修改訂單</button>
+                        </div>
+                          <div class="col-6">
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-completed-{{ order.id }}">移除訂單</button>
+                          </div>
+                      </div>
+                      <!--<a href="{% url 'delete' order_id=order.id %}" class="btn btn-danger pull-right">移除訂單</a>-->
 
+                  </div>
+                </div>
+              </div>
+                    {% include 'modal-edit-completed.html' %}
+                    {% include 'modal-delete-completed.html' %}
+                    {% endif %}
+            {%  endfor %}
+            </div>
+        </div>
 {% endblock %}

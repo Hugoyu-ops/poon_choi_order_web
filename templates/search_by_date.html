@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% if date %}
     <div class="container">
     <h3>單日生意額: {{ total_amount }}</h3>
     <h3>上午送貨盤數: {{ am_quan }}</h3>
@@ -26,15 +27,16 @@
                             件數: {{ order.fields.Quan }}
                             價錢: ${{ order.fields.Price }}
                             運費: ${{ order.fields.shipping_fee }}
-                            總收費(連運費): ${{ order.fields.total_price}}
+                            總收費(連運費): ${{ order.fields.total_price}}<br>
+                            {% if order.fields.Completed %}<h2 style="text-align: center">已完成</h2>{% endif %}
                         </p>
                   <hr class="fa fa-star">
                   <div class="form-row text-left">
                     <div class="col-6">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-{{ order.id }}">修改訂單</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-date-{{ order.id }}">修改訂單</button>
                     </div>
                       <div class="col-6">
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ order.id }}">移除訂單</button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-date-{{ order.id }}">移除訂單</button>
                       </div>
                   </div>
                   <!--<a href="{% url 'delete' order_id=order.id %}" class="btn btn-danger pull-right">移除訂單</a>-->
@@ -42,10 +44,11 @@
               </div>
             </div>
           </div>
-                {% include 'model-edit.html' %}
-                {% include 'modal-delete.html' %}
+                {% include 'model-edit-date.html' %}
+                {% include 'modal-delete-date.html' %}
         {%  endfor %}
         </div>
     </div>
     </div>
+    {% endif %}
 {% endblock %}

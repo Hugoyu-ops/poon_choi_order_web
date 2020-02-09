@@ -1,22 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% if date %}
     <div class="container">
-    <hr class="fa fa-star">
-    <form action="" method="get" class="form-inline">
-        <div class="form-group">
-            <input class="form-control" name="query" type="search" placeholder="主要電話" value="{{ Request.get.query }}">
-            <button class="btn btn-outline-success" type="submit" value="Search">訂單搜索</button>
-        </div>
-    </form>
-    <form action="{% url 'date' %}" method="get" class="form-inline my-2 my-lg-0" style="padding-right: 35px" >
-              <div class="form-group">
-              <input class="form-control mr-sm-2" type="date" name="date_query" class="form-control" value="{{ Request.get.date_query }}" >
-              <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="Search">查看單日貨流&生意額</button>
-              </div>
-          </form>
-        <div class="row">
-            {% for order in search %}
-                {% if order.fields.Completed != 'on' %}
+    <div class="row">
+            {% for order in date %}
+                {% if order.fields.Completed == 'on' %}
           <div class="col-sm-12">
             <div class="card;center">
               <div class="card-body">
@@ -39,10 +27,10 @@
                   <hr class="fa fa-star">
                   <div class="form-row text-left">
                     <div class="col-6">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-{{ order.id }}">修改訂單</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-completed-date-{{ order.id }}">修改訂單</button>
                     </div>
                       <div class="col-6">
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ order.id }}">移除訂單</button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-completed-date-{{ order.id }}">移除訂單</button>
                       </div>
                   </div>
                   <!--<a href="{% url 'delete' order_id=order.id %}" class="btn btn-danger pull-right">移除訂單</a>-->
@@ -50,14 +38,12 @@
               </div>
             </div>
           </div>
-                {% include 'model-edit.html' %}
-                {% include 'modal-delete.html' %}
+                {% include 'modal-edit-completed-date.html' %}
+                {% include 'modal-delete-completed-date.html' %}
                 {% endif %}
         {%  endfor %}
         </div>
     </div>
-
-
-
-
+    </div>
+    {% endif %}
 {% endblock %}

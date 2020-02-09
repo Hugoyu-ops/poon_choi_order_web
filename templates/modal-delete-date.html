@@ -1,0 +1,16 @@
+<div id="modal-delete-date-{{ order.id }}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="create">{{ order.fields.Name }} {{ order.fields.Date }} {{ order.fields.Tel1 }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h3>確認移除?</h3>
+                <hr class="fa fa-star">
+                <a href="{% url 'delete_date' order_id=order.id %}" class="btn btn-danger pull-right">是</a>
+                <button  type="button" class="close; btn btn-primary" data-dismiss="modal">否</button>
+            </div>
+        </div>
+    </div>
+</div>

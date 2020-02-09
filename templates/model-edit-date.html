@@ -1,4 +1,4 @@
-<div id="modal-edit-{{ order.id }}" class="modal fade">
+<div id="modal-edit-date-{{ order.id }}" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'edit' order_id=order.id %}" method="post">
+                <form action="{% url 'edit_date' order_id=order.id %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="clientName">姓名</label>

@@ -1,4 +1,4 @@
-<div id="modal-edit-{{ order.id }}" class="modal fade">
+<div id="modal-edit-completed-{{ order.id }}" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'edit' order_id=order.id %}" method="post">
+                <form action="{% url 'completed_edit' order_id=order.id %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="clientName">姓名</label>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-inline">
                         <label for="clientCompleted" style="padding-block: 35px;padding-bottom: 35px">已完成</label>
-                        <input type="checkbox" class="form-control" id="clientCompleted" name="complete" style="padding-bottom: 35px">
+                        <input type="checkbox" class="form-control" id="clientCompleted" name="complete" style="padding-bottom: 35px" checked="checked">
                     </div>
 
                         <button type="submit" class="btn btn-primary">修改訂單</button>
